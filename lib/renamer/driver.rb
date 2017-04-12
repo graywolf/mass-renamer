@@ -12,6 +12,9 @@ module Renamer
 		end
 
 		def gather_files
+			files = Dir.glob(@opts[:recursive] ? '**/*' : '*')
+			files.select! { |i| i[@opts[:filter]] } if @opts[:filter]
+			files
 		end
 
 		def validate_environment!
