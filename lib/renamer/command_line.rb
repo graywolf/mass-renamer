@@ -49,8 +49,8 @@ module Renamer
 				opt.on('-e', '--editor EDITOR', 'Editor to use') do |editor|
 					opts[:editor] = editor
 				end
-				opt.on('-l', '--limit REGEX', Regexp, 'Regex used to limit files') do |limit|
-					opts[:limit] = limit
+				opt.on('-f', '--filter REGEX', Regexp, 'Regex used to filter files') do |filter|
+					opts[:filter] = filter
 				end
 			end.parse!(argv)
 			opts[:dir] = argv[0] || Dir::pwd

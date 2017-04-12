@@ -21,12 +21,12 @@ class Command_Line_Test < Minitest::Test
 		assert_equal(base_res.dup.merge({ editor: 'nano' }), res)
 
 		assert_raises(RegexpError) do
-			res = Command_Line.new.parse %W{--limit *.txt}
+			res = Command_Line.new.parse %W{--filter *.txt}
 		end
-		res = Command_Line.new.parse %W{--limit .*\\.txt}
-		assert_equal(base_res.dup.merge({ limit: /.*\.txt/ }), res)
-		res = Command_Line.new.parse %W{-l .*\\.txt }
-		assert_equal(base_res.dup.merge({ limit: /.*\.txt/ }), res)
+		res = Command_Line.new.parse %W{--filter .*\\.txt}
+		assert_equal(base_res.dup.merge({ filter: /.*\.txt/ }), res)
+		res = Command_Line.new.parse %W{-f .*\\.txt }
+		assert_equal(base_res.dup.merge({ filter: /.*\.txt/ }), res)
 
 		res = Command_Line.new.parse %W{--version}
 		assert_equal(base_res.dup.merge({ version: true }), res)
