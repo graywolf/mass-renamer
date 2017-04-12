@@ -5,44 +5,63 @@ class Command_Line_Test < Minitest::Test
 
 	def test_parse_argv
 		base_res = { dir: Dir::pwd, editor: ENV['EDITOR'] || 'vim' }.freeze
-		res = Command_Line.parse %W{}
+		res = Command_Line.new.parse %W{}
 		assert_equal(base_res, res)
-		res = Command_Line.parse %W{testdir}
+		res = Command_Line.new.parse %W{testdir}
 		assert_equal(base_res.dup.merge({ dir: 'testdir' }), res)
 
-		res = Command_Line.parse %W{--dry}
+		res = Command_Line.new.parse %W{--dry}
 		assert_equal(base_res.dup.merge({ dry: true }), res)
-		res = Command_Line.parse %W{-d}
+		res = Command_Line.new.parse %W{-d}
 		assert_equal(base_res.dup.merge({ dry: true }), res)
 
-		res = Command_Line.parse %W{--editor nano}
+		res = Command_Line.new.parse %W{--editor nano}
 		assert_equal(base_res.dup.merge({ editor: 'nano' }), res)
-		res = Command_Line.parse %W{-e nano}
+		res = Command_Line.new.parse %W{-e nano}
 		assert_equal(base_res.dup.merge({ editor: 'nano' }), res)
 
-		res = Command_Line.parse %W{--version}
+		assert_raises(RegexpError) do
+			res = Command_Line.new.parse %W{--limit *.txt}
+		end
+		res = Command_Line.new.parse %W{--limit .*\\.txt}
+		assert_equal(base_res.dup.merge({ limit: /.*\.txt/ }), res)
+		res = Command_Line.new.parse %W{-l .*\\.txt }
+		assert_equal(base_res.dup.merge({ limit: /.*\.txt/ }), res)
+
+		res = Command_Line.new.parse %W{--version}
 		assert_equal(base_res.dup.merge({ version: true }), res)
 
-		res = Command_Line.parse %W{--recursive}
+		res = Command_Line.new.parse %W{--recursive}
 		assert_equal(base_res.dup.merge({ recursive: true }), res)
-		res = Command_Line.parse %W{-r}
+		res = Command_Line.new.parse %W{-r}
 		assert_equal(base_res.dup.merge({ recursive: true }), res)
 
-		res = Command_Line.parse %W{--verbose}
+		res = Command_Line.new.parse %W{--verbose}
 		assert_equal(base_res.dup.merge({ verbose: true }), res)
-		res = Command_Line.parse %W{-V}
+		res = Command_Line.new.parse %W{-V}
 		assert_equal(base_res.dup.merge({ verbose: true }), res)
 
-		res = Command_Line.parse %W{--verify}
+		res = Command_Line.new.parse %W{--verify}
 		assert_equal(base_res.dup.merge({ verify: true }), res)
-		res = Command_Line.parse %W{-v}
+		res = Command_Line.new.parse %W{-v}
 		assert_equal(base_res.dup.merge({ verify: true }), res)
 
-		res = Command_Line.parse %W{-d -e vim testdir}
+		res = Command_Line.new.parse %W{-d -e vim testdir}
 		assert_equal(base_res.dup.merge({ dry: true, editor: 'vim', dir: 'testdir'}), res)
-		res = Command_Line.parse %W{-d testdir -e vim}
+		res = Command_Line.new.parse %W{-d testdir -e vim}
 		assert_equal(base_res.dup.merge({ dry: true, editor: 'vim', dir: 'testdir'}), res)
+	end
 
+	def test_target_dir_exists
+		Dir.mktmpdir do |d|
+			Command_Line.new [d]
+		end
+	end
+
+	def test_target_dir_doesnt_exists
+		assert_raises(IOError) do
+			Command_Line.new ['/tmp/this_dir_probably_does_not_exist']
+		end
 	end
 
 end

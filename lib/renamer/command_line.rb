@@ -3,11 +3,16 @@ require 'optparse'
 module Renamer
 
 	class Command_Line
-		def initialize
-			opts = Command_Line::parse ARGV
+		def initialize argv = ARGV
+			opts = parse argv
+			@driver = Driver.new opts
 		end
 
-		def self.parse argv
+		def rename!
+			@driver.rename!
+		end
+
+		def parse argv
 			opts = {}
 			OptionParser.new do |opt|
 				opt.banner = 'Usage: renamer [DIRECTORY] [OPTIONS]'
@@ -43,6 +48,9 @@ module Renamer
 				end
 				opt.on('-e', '--editor EDITOR', 'Editor to use') do |editor|
 					opts[:editor] = editor
+				end
+				opt.on('-l', '--limit REGEX', Regexp, 'Regex used to limit files') do |limit|
+					opts[:limit] = limit
 				end
 			end.parse!(argv)
 			opts[:dir] = argv[0] || Dir::pwd

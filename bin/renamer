@@ -3,7 +3,8 @@
 require 'renamer'
 
 begin
-	Renamer::Command_Line.new
+	cli = Renamer::Command_Line.new ARGV
+	cli.rename!
 rescue => e
 	STDERR.puts e.message
 	exit 1
