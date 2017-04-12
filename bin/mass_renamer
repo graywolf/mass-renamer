@@ -1,5 +1,3 @@
 #!/usr/bin/env ruby
 
-require 'renamer'
-
-Renamer::Command_Line.new
+load File.expand_path(File.dirname(__FILE__) + '/renamer')

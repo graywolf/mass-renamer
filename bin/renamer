@@ -2,4 +2,9 @@
 
 require 'renamer'
 
-Renamer::Command_Line.new
+begin
+	Renamer::Command_Line.new
+rescue => e
+	STDERR.puts e.message
+	exit 1
+end
