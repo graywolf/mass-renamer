@@ -48,44 +48,44 @@ class Driver_Test < Minitest::Test
 		file2
 		file3
 		folder1
-		folder1/folder1_folder1
-		folder1/folder1_folder1/folder1_folder1_file1
-		folder1/folder1_folder1/folder1_folder1_file2
-		folder1/folder1_folder1/folder1_folder1_file3
-		folder1/folder1_folder1/folder1_folder1_folder1
-		folder1/folder1_folder1/folder1_folder1_folder1/folder1_folder1_folder1_file1
-		folder1/folder1_folder1/folder1_folder1_folder1/folder1_folder1_folder1_file2
-		folder1/folder1_folder1/folder1_folder1_folder1/folder1_folder1_folder1_file3
-		folder1/folder1_folder1/folder1_folder1_folder2
-		folder1/folder1_folder1/folder1_folder1_folder2/folder1_folder1_folder2_file1
-		folder1/folder1_folder1/folder1_folder1_folder2/folder1_folder1_folder2_file2
-		folder1/folder1_folder1/folder1_folder1_folder2/folder1_folder1_folder2_file3
-		folder1/folder1_folder2
-		folder1/folder1_folder2/folder1_folder2_file1
-		folder1/folder1_folder2/folder1_folder2_file2
-		folder1/folder1_folder2/folder1_folder2_file3
-		folder1/folder1_folder3
-		folder1/folder1_folder3/folder1_folder3_folder1
-		folder1/folder1_folder3/folder1_folder3_folder1/folder1_folder3_folder1_file1
-		folder1/folder1_folder3/folder1_folder3_folder1/folder1_folder3_folder1_file2
-		folder1/folder1_folder3/folder1_folder3_folder1/folder1_folder3_folder1_file3
+		folder1/folder1
+		folder1/folder1/file1
+		folder1/folder1/file2
+		folder1/folder1/file3
+		folder1/folder1/folder1
+		folder1/folder1/folder1/file1
+		folder1/folder1/folder1/file2
+		folder1/folder1/folder1/file3
+		folder1/folder1/folder2
+		folder1/folder1/folder2/file1
+		folder1/folder1/folder2/file2
+		folder1/folder1/folder2/file3
+		folder1/folder2
+		folder1/folder2/file1
+		folder1/folder2/file2
+		folder1/folder2/file3
+		folder1/folder3
+		folder1/folder3/folder1
+		folder1/folder3/folder1/file1
+		folder1/folder3/folder1/file2
+		folder1/folder3/folder1/file3
 		folder2
-		folder2/folder2_folder1
-		folder2/folder2_folder1/folder2_folder1_file1
-		folder2/folder2_folder1/folder2_folder1_file2
-		folder2/folder2_folder1/folder2_folder1_file3
-		folder2/folder2_folder2
-		folder2/folder2_folder2/folder2_folder2_file1
-		folder2/folder2_folder2/folder2_folder2_file2
-		folder2/folder2_folder2/folder2_folder2_file3
-		folder2/folder2_folder3
-		folder2/folder2_folder3/folder2_folder3_file1
-		folder2/folder2_folder3/folder2_folder3_file2
-		folder2/folder2_folder3/folder2_folder3_file3
+		folder2/folder1
+		folder2/folder1/file1
+		folder2/folder1/file2
+		folder2/folder1/file3
+		folder2/folder2
+		folder2/folder2/file1
+		folder2/folder2/file2
+		folder2/folder2/file3
+		folder2/folder3
+		folder2/folder3/file1
+		folder2/folder3/file2
+		folder2/folder3/file3
 		folder3
-		folder3/folder3_file1
-		folder3/folder3_file2
-		folder3/folder3_file3
+		folder3/file1
+		folder3/file2
+		folder3/file3
 	}
 
 	def test_gather_files_recursive
