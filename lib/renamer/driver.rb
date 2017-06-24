@@ -13,14 +13,14 @@ module Renamer
 		end
 
 		def ask msg, from, to = nil
-			print "#{msg} #{from}#{to ? " -> #{to}" : '' }? [YN]: "
+			print "#{msg} '#{from}'#{to ? " -> '#{to}'" : '' }? [YN]: "
 			gets.chomp.downcase == ?y
 		end
 
 		def remove! from
 			raise "Deletes were disables." if @no_delete
 			begin
-				puts "rm -r #{from}" if @dry or @verbose
+				puts "rm -r '#{from}'" if @dry or @verbose
 				if @ask
 					return unless ask("Remove file", from)
 				end
@@ -34,7 +34,7 @@ module Renamer
 
 		def copy! from, to
 			begin
-				puts "cp -r #{from} #{to}" if @dry or @verbose
+				puts "cp -r '#{from}' '#{to}'" if @dry or @verbose
 				if @ask
 					return unless ask("Copy", from, to)
 				end
@@ -49,7 +49,7 @@ module Renamer
 
 		def move! from, to
 			begin
-				puts "mv #{from} #{to}" if @dry or @verbose
+				puts "mv '#{from}' '#{to}'" if @dry or @verbose
 				if @ask
 					return unless ask("Move", from, to)
 				end
