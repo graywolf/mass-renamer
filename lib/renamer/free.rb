@@ -58,7 +58,7 @@ module Renamer
 		end
 
 		def parse_renames str
-			lines = str.lines.map(&:chomp)
+			lines = str.lines.map(&:chomp).reject { |l| l[/^\s*$/] }
 			renames = []
 			until lines.empty?
 				filename = lines.shift
