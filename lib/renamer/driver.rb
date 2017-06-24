@@ -5,17 +5,36 @@ module Renamer
 
 	class Filesystem_Driver
 
-		def initialize ask: , dry:, verbose:, no_delete:, force_move:
+		def initialize ask: , dry:, verbose:, no_delete:, force:
 			@ask = ask
 			@dry = dry
 			@verbose = verbose
 			@no_delete = no_delete
-			@force_move = force_move
+			@force = force
 		end
 
 		def ask msg, from, to = nil
 			print "#{msg} '#{from}'#{to ? " -> '#{to}'" : '' }? [YN]: "
 			gets.chomp.downcase == ?y
+		end
+
+		def overwrite to
+			loop do
+				print "Overwrite #{to}? [Y(es)/N(o)/A(bort)]: "
+				case gets.chomp.downcase
+				when ?a
+					puts "Aborting."
+					return :abort
+				when ?y
+					return :yes
+				when ?n
+					puts "Not overwriting, skipping."
+					return :no
+				else
+					puts "Unexpected answer, try again."
+				end
+			end
+
 		end
 
 		def remove! from
@@ -40,6 +59,15 @@ module Renamer
 					return unless ask("Copy", from, to)
 				end
 				return if @dry
+				if File.exist?(to) and not @force
+					case overwrite(to)
+					when :abort
+						exit 1
+					when :no
+						return
+					when :yes
+					end
+				end
 				FileUtils.mkdir_p File.dirname(to)
 				FileUtils.copy_entry from, to, preserve: true, remove_destination: true
 			rescue StandardError => e
@@ -55,22 +83,13 @@ module Renamer
 					return unless ask("Move", from, to)
 				end
 				return if @dry
-				if File.exist?(to) and not @force_move
-					loop do
-						print "Overwrite #{to}? [Y(es)/N(o)/A(bort)]: "
-						case gets.chomp.downcase
-						when ?a
-							puts "Aborting."
-							exit 1
-						when ?y
-							break
-						when ?n
-							puts "Not overwriting."
-							return
-						else
-							puts "Unknown answer, try again."
-							next
-						end
+				if File.exist?(to) and not @force
+					case overwrite(to)
+					when :abort
+						exit 1
+					when :no
+						return
+					when :yes
 					end
 				end
 				FileUtils.mkdir_p File.dirname(to)
@@ -107,7 +126,7 @@ module Renamer
 				dry: @opts[:dry],
 				verbose: @opts[:verbose],
 				no_delete: @opts[:no_delete],
-				force_move: @opts[:force_move]
+				force: @opts[:force]
 			)
 
 			renames.each do |from, to|

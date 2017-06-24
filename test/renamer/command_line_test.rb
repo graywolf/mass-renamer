@@ -56,10 +56,10 @@ class Command_Line_Test < Minitest::Test
 		res = Command_Line.new.parse %W{-k}
 		assert_equal(base_res.dup.merge({ keep_going: true }), res)
 
-		res = Command_Line.new.parse %W{--force-move}
-		assert_equal(base_res.dup.merge({ force_move: true }), res)
-		res = Command_Line.new.parse %W{-M}
-		assert_equal(base_res.dup.merge({ force_move: true }), res)
+		res = Command_Line.new.parse %W{--force}
+		assert_equal(base_res.dup.merge({ force: true }), res)
+		res = Command_Line.new.parse %W{-f}
+		assert_equal(base_res.dup.merge({ force: true }), res)
 
 		res = Command_Line.new.parse %W{-d -e vim testdir}
 		assert_equal(base_res.dup.merge({ dry: true, editor: 'vim', dir: 'testdir'}), res)
