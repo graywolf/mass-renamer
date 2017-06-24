@@ -118,11 +118,11 @@ module Renamer
 			tmpfile = Tempfile.new
 			begin
 				tmpfile.write generate_file_to_edit(files)
-				tmpfile.flush
+				tmpfile.close
 				unless system(@opts[:editor], tmpfile.path)
 					raise "Cannot open editor (not in path?). Fix it."
 				end
-				tmpfile.rewind
+				tmpfile.open
 				parse_renames(tmpfile.read)
 			ensure
 				tmpfile.close
