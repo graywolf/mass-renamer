@@ -3,6 +3,19 @@ Renamer
 
 Rename multiple files at once using your favourite text editor.
 
+## Supported
+
+### Ruby
+
+Ruby 2.4.1 is tested. Older may or may not work, dunno.
+
+### OS
+
+* Linux - supported system
+* MacOS - seems to work
+* Windows - not supported, but would be fairly easy
+            to get it to work there, pull requests are accepted
+
 How to use
 ----------
 
