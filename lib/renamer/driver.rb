@@ -142,8 +142,8 @@ module Renamer
 						next if from == to
 						fd.move! from, to
 					else
-						to.each { |to| fd.copy! from, to }
-						fd.remove! from
+						to.each { |to| fd.copy! from, to unless from == to }
+						fd.remove! from unless to.include? from
 					end
 				rescue
 					next if @opts[:keep_going]
