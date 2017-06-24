@@ -46,6 +46,16 @@ class Command_Line_Test < Minitest::Test
 		res = Command_Line.new.parse %W{-v}
 		assert_equal(base_res.dup.merge({ verify: true }), res)
 
+		res = Command_Line.new.parse %W{--no-delete}
+		assert_equal(base_res.dup.merge({ no_delete: true }), res)
+		res = Command_Line.new.parse %W{-D}
+		assert_equal(base_res.dup.merge({ no_delete: true }), res)
+
+		res = Command_Line.new.parse %W{--keep-going}
+		assert_equal(base_res.dup.merge({ keep_going: true }), res)
+		res = Command_Line.new.parse %W{-k}
+		assert_equal(base_res.dup.merge({ keep_going: true }), res)
+
 		res = Command_Line.new.parse %W{-d -e vim testdir}
 		assert_equal(base_res.dup.merge({ dry: true, editor: 'vim', dir: 'testdir'}), res)
 		res = Command_Line.new.parse %W{-d testdir -e vim}
