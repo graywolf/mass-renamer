@@ -7,7 +7,7 @@ How to use
 ----------
 
 When you run the renamer, it opens text editor of your choice and fills it
-with file path. You edit the file, close your editor and renamer will do it's
+with file path. You edit the file, close your editor and renamer will do its
 thing and rename stuff.
 
 Rules for editing the rename file
