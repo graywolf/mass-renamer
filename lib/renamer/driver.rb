@@ -5,11 +5,12 @@ module Renamer
 
 	class Filesystem_Driver
 
-		def initialize ask: , dry:, verbose:, no_delete:
+		def initialize ask: , dry:, verbose:, no_delete:, force_move:
 			@ask = ask
 			@dry = dry
 			@verbose = verbose
 			@no_delete = no_delete
+			@force_move = force_move
 		end
 
 		def ask msg, from, to = nil
@@ -54,6 +55,24 @@ module Renamer
 					return unless ask("Move", from, to)
 				end
 				return if @dry
+				if File.exist?(to) and not @force_move
+					loop do
+						print "Overwrite #{to}? [Y(es)/N(o)/A(bort)]: "
+						case gets.chomp.downcase
+						when ?a
+							puts "Aborting."
+							exit 1
+						when ?y
+							break
+						when ?n
+							puts "Not overwriting."
+							return
+						else
+							puts "Unknown answer, try again."
+							next
+						end
+					end
+				end
 				FileUtils.mkdir_p File.dirname(to)
 				File.rename from, to
 			rescue StandardError => e
@@ -87,7 +106,8 @@ module Renamer
 				ask: @opts[:ask],
 				dry: @opts[:dry],
 				verbose: @opts[:verbose],
-				no_delete: @opts[:no_delete]
+				no_delete: @opts[:no_delete],
+				force_move: @opts[:force_move]
 			)
 
 			renames.each do |from, to|
