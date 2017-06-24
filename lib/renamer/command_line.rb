@@ -37,7 +37,7 @@ module Renamer
 				opt.on('-r', '--recursive', 'Recurse into subdirectories') do
 					opts[:recursive] = true
 				end
-				opt.on('-D', '--no-delete', 'Complete disables delete function') do
+				opt.on('-D', '--no-delete', 'Completely disables delete function') do
 					opts[:no_delete] = true
 				end
 				opt.on('-v', '--verify', 'Ask for consent before doing each action') do
