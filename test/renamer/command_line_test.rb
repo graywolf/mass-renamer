@@ -58,7 +58,7 @@ class Command_Line_Test < Minitest::Test
 
 		res = Command_Line.new.parse %W{--force}
 		assert_equal(base_res.dup.merge({ force: true }), res)
-		res = Command_Line.new.parse %W{-f}
+		res = Command_Line.new.parse %W{-F}
 		assert_equal(base_res.dup.merge({ force: true }), res)
 
 		res = Command_Line.new.parse %W{-d -e vim testdir}

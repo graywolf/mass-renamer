@@ -1,5 +1,5 @@
-Renamer
-=======
+Mass Renamer
+============
 
 Rename multiple files at once using your favourite text editor.
 
@@ -36,7 +36,7 @@ By removing all targets for file you are marking that file for deletion.
 	file
 		file
 
-This is default for all file.
+This is default for all files.
 
 ### Move file
 
@@ -83,7 +83,7 @@ Known issues
 To put simply, each filename (new, old) must be displayable (is that a word?)
 on one line and it must be able to absolve roundtrip
 `filename -> editor -> filename` for script to be able to pick it up. No escaping
-is supported at the moment, so you cannot put new line in file name. I don't
+is supported at the moment, so you cannot put new line in file name. I don't think
 this is a problem for anyone.
 
 ### 2. File path cannot start with space

@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
 
 	# recommended
 	s.email = 'wolf@wolfsden.cz'
-	s.homepage = 'https://github.com/graywolf/renamer'
+	s.homepage = 'https://github.com/graywolf/mass-renamer'
 	s.license = 'MIT'
 
 	# optional
@@ -22,6 +22,5 @@ Gem::Specification.new do |s|
 		employing external editor of your choice, you can use
 		all the power you editor offers.
 	EOF
-	s.executables << 'renamer'
-	s.executables << 'mass_renamer'
+	s.executables << 'mass-renamer'
 end
